@@ -1,3 +1,4 @@
+// ...existing code...
 resource "azurerm_virtual_network" "this" {
   name                = var.vnet_name
   address_space       = var.address_space
@@ -14,3 +15,4 @@ resource "azurerm_subnet" "this" {
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes     = [var.subnet_prefix]
 }
+// ...existing code...

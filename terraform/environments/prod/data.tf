@@ -1,0 +1,1 @@
+// Data sources moved to root terragrunt.hcl
