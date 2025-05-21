@@ -10,16 +10,11 @@ remote_state {
   }
 }
 
-# Common provider configuration can be added here if needed
-
-# Shared data sources for Key Vault secret retrieval
-
-data "azurerm_key_vault_secret" "vm_admin_password" {
-  name         = "vm-admin-password"
-  key_vault_id = data.azurerm_key_vault.env.id
+locals {
+    location = "eastus2"
+    parent = "${get_terragrunt_dir()}/../"
+    env = basename(dirname(local.parent))
+    rg = "${env}-rg"
+    vnet_name = "${env}-vnet"
 }
 
-data "azurerm_key_vault" "env" {
-  name                = var.key_vault_name
-  resource_group_name = var.key_vault_rg
-}
