@@ -7,16 +7,18 @@ terraform {
 }
 
 locals {
-  shared_inputs = include.root.inputs
+  env_vars                     = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  environment                  = local.env_vars.locals.environment
+  location                     = local.env_vars.locals.location
+  rg                           = local.env_vars.locals.rg
 }
 
-inputs = merge(local.shared_inputs,
-    {
-    vnet_name              = "test-hub-vnet"
-    address_space           = ["10.1.0.0/16"]
-    primary_subnet_name    = "test-primary-subnet"
-    primary_subnet_prefix   = "10.2.1.0/24"
-    secondary_subnet_name  = "test-secondary-subnet" 
-    secondary_subnet_prefix = "10.2.2.0/24"
-    }
-)
+inputs =  {
+    environment            = local.environment
+    location               = local.location
+    rg                     = local.rg
+    vnet_name              = "${local.environment}-hub-vnet"
+    address_space          = ["10.2.0.0/16"]
+    subnet_name            = "${local.environment}-subnet00"
+    subnet_prefix          = "10.2.0.0/24"
+}

@@ -57,23 +57,5 @@ terraform {
 EOF
 }
 
-# Generate a data file with reference to the Key Vault
-# Creates the following variables from AKV secrets:
-# - -> vm_admin_password
-generate "data" {
-  path      = "data.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-data "azurerm_key_vault" "tfvalues" {
-  name                = "${local.akv_name}"
-  resource_group_name = "${local.akv_rg}"
-}
-data "azurerm_key_vault_secret" "vm_admin_password" {
-  name         = "defaultpassword"
-  key_vault_id = data.azurerm_key_vault.tfvalues.id
-}
-EOF
-}
-
 # Get shared variables and provide as inputs
 inputs = local.env_vars
