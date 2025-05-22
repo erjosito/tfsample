@@ -1,12 +1,6 @@
-// ...existing code...
-variable "vnet_name" {
-  description = "The name of the virtual network."
+variable "environment" {
+  description = "The environment for resource tagging (e.g., dev, staging, prod)."
   type        = string
-}
-
-variable "address_space" {
-  description = "The address space for the virtual network."
-  type        = list(string)
 }
 
 variable "location" {
@@ -19,9 +13,14 @@ variable "rg" {
   type        = string
 }
 
-variable "environment" {
-  description = "The environment for resource tagging (e.g., dev, staging, prod)."
+variable "vnet_name" {
+  description = "The name of the virtual network."
   type        = string
+}
+
+variable "address_space" {
+  description = "The address space for the virtual network."
+  type        = list(string)
 }
 
 variable "subnet_name" {
@@ -33,4 +32,3 @@ variable "subnet_prefix" {
   description = "The address prefix for the subnet."
   type        = string
 }
-// ...existing code...
